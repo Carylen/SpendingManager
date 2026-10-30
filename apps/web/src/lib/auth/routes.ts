@@ -3,7 +3,7 @@ import type { Viewer } from './claims';
 
 const GUEST_ONLY = ['/masuk', '/daftar'];
 const PUBLIC = ['/auth/callback', appConfig.mfaPath];
-const PROTECTED = ['/beranda', '/pengaturan'];
+const PROTECTED = ['/beranda', '/transaksi', '/perlu-dicek', '/sumber', '/impor', '/pengaturan'];
 
 const matches = (pathname: string, prefixes: readonly string[]) =>
   prefixes.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));

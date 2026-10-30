@@ -6,6 +6,7 @@ import '@fontsource/dm-mono/500.css';
 import '@/styles/tokens.css';
 import '@/styles/base.css';
 import '@/styles/layout.css';
+import '@/styles/components.css';
 import { appConfig } from '@/config/app';
 
 export const metadata: Metadata = {

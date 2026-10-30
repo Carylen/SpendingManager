@@ -62,6 +62,13 @@ describe('decideRoute', () => {
     });
   });
 
+  it.each(['/transaksi', '/transaksi/tambah', '/perlu-dicek', '/sumber', '/impor'])(
+    'protects %s',
+    (pathname) => {
+      expect(decideRoute(pathname, null)).toMatchObject({ type: 'redirect' });
+    },
+  );
+
   it('sends signed-in users away from sign in', () => {
     expect(decideRoute('/masuk', viewer())).toEqual({ type: 'redirect', to: '/beranda' });
   });

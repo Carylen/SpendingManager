@@ -1,4 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
+import { fileURLToPath } from 'node:url';
+import { format, resolveConfig } from 'prettier';
 
 const source = new URL('../design/tokens.json', import.meta.url);
 const target = new URL('../src/styles/tokens.css', import.meta.url);
@@ -40,4 +42,6 @@ ${declarations(darkOnly, dark)}
 }
 `;
 
-await writeFile(target, css);
+const targetPath = fileURLToPath(target);
+const options = await resolveConfig(targetPath);
+await writeFile(target, await format(css, { ...options, filepath: targetPath }));

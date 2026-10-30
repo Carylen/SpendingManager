@@ -21,7 +21,14 @@ email / sms ──► raw_events ──► parsers ──► transactions ◄─
 
 Every inbound message is stored unchanged in `raw_events` before parsing, so a parser can be
 fixed and re-run without losing data. A transaction fingerprint (user, direction, amount,
-5-minute bucket, account) deduplicates the same payment seen through two channels.
+5-minute bucket, account) deduplicates the same payment seen through two channels. Manual entries
+get a random fingerprint instead, so two identical cash purchases are never merged. A manual entry
+for a past day only knows its day: it is stored at noon WIB with `time_known = false`, and the UI
+hides the time.
+
+Dates are Asia/Jakarta calendar days (`IsoDay`, `YYYY-MM-DD`). The Beranda and Transaksi range
+lives in the URL (`?dari=…&sampai=…`, omitted for the default "1st of this month until today"), so
+it carries over between pages.
 
 ## Security model
 
@@ -43,4 +50,6 @@ redacted sample emails exist; see `packages/parsers/README.md`.
 ## Design system
 
 Design tokens are exported from the Arus design system into `apps/web/design/tokens.json` and
-compiled into CSS variables by `npm run tokens`. Components follow the design system's naming.
+compiled into CSS variables by `npm run tokens`. Component styles live in
+`apps/web/src/styles/components.css` and keep the design system's `ar-` class names; React primitives
+(SearchSelect, DateRangePicker, SegmentedControl, Toast, Icon) are in `apps/web/src/components/ui`.

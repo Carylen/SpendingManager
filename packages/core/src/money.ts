@@ -2,6 +2,8 @@ import type { Direction } from './transaction.ts';
 
 export type Rupiah = number;
 
+export const MAX_RUPIAH: Rupiah = 999_999_999_999;
+
 const MINUS_SIGN = '−';
 
 export function formatRupiah(amount: Rupiah, direction?: Direction): string {
